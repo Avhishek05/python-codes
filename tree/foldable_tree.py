@@ -1,0 +1,50 @@
+def samestruct(a,b):
+	if a==None and b==None:
+		return True
+	if a!=None and b!=None and samestruct(a.left,b.left) and samestruct(a.righst,b.left):
+		return True
+	return False
+def isfoldable(root):
+	if root==None:
+		return True
+	mirror(root.left)
+	res=samestruct(root.left,root.right)
+	return res
+def mirror(root):
+	if root==None:
+		return
+	mirror(root.left)
+	mirror(root.right)
+	root.left,root.right=root.right,root.left
+
+def inorder(root):
+	if root==None:
+		return
+	inorder(root.left)
+	print(root.data,end=" ")
+	inorder(root.right)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left=None
+        self.right=None
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.right.right = Node(7)
+root.left.right = Node(5)
+root.right.left = Node(6)
+root.left.right.left = Node(15)
+root.left.right.left.right = Node(19)
+
+print('before  inorder')
+inorder(root)
+print("")
+if isfoldable(root):
+	print("Yes")
+else:
+	print("No")
+print('after inorder')
+inorder(root)
+print("")
